@@ -89,7 +89,7 @@ return { successRate: 0, message };
             });
             var service = new ClearScriptChallengeEvaluationService(serviceOptions);
 
-            Assert.ThrowsAsync<Exception>(async () => await service.EvaluateAsync("", Array.Empty<ChallengeTestCase>()));
+            Assert.That(async () => await service.EvaluateAsync("", Array.Empty<ChallengeTestCase>()), Throws.TypeOf<Exception>());
         }
 
         [Test]
@@ -102,7 +102,7 @@ return { successRate: 0, message };
             });
             var service = new ClearScriptChallengeEvaluationService(serviceOptions);
 
-            Assert.ThrowsAsync<Exception>(async () => await service.EvaluateAsync("", Array.Empty<ChallengeTestCase>()));
+            Assert.That(async () => await service.EvaluateAsync("", Array.Empty<ChallengeTestCase>()), Throws.TypeOf<Exception>());
         }
 
         [Test]
@@ -115,7 +115,7 @@ return { successRate: 0, message };
             });
             var service = new ClearScriptChallengeEvaluationService(serviceOptions);
 
-            Assert.ThrowsAsync<Exception>(async () => await service.EvaluateAsync("", Array.Empty<ChallengeTestCase>()));
+            Assert.That(async () => await service.EvaluateAsync("", Array.Empty<ChallengeTestCase>()), Throws.TypeOf<Exception>());
         }
 
         private string CreateEvaluateFunctionSource(string bodySource)

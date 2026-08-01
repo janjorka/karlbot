@@ -20,7 +20,7 @@ namespace Infrastructure.Tests.Services
             {
                 Issuer = "issuer",
                 Audience = "audience",
-                Key = "xxxxxxxxxxxxxxxx",
+                Key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                 LifetimeMinutes = 20
             });
             var user = new User("aaa@bbb.ccc") { Id = Guid.NewGuid() };
@@ -30,7 +30,7 @@ namespace Infrastructure.Tests.Services
 
             var token = await service.CreateTokenAsync(new User("aaa@bbb.ccc") { Id = user.Id });
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("xxxxxxxxxxxxxxxx"));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"));
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidIssuer = "issuer",

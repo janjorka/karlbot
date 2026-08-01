@@ -10,20 +10,20 @@ jobs:
     runs-on: ubuntu-latest
     services:
       sqlserver:
-        image: mcr.microsoft.com/mssql/server:2022-latest
+        image: mcr.microsoft.com/mssql/server:2025-latest
         env:
-          SA_PASSWORD: '29Z#O*P63g!5'
+          MSSQL_SA_PASSWORD: '29Z#O*P63g!5'
           ACCEPT_EULA: 'Y'
         ports:
           - 1433:1433
           
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v7
       with:
-        node-version: 14.x
+        node-version: 26.x
     - name: Restore client dependencies
       run: |
         cd client
@@ -49,9 +49,9 @@ jobs:
         npm run test -- --browsers=ChromeHeadless
         
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v6
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 10.0.x
     - name: Restore server dependencies
       run: |
         cd server
@@ -71,12 +71,12 @@ jobs:
     if: github.ref == 'refs/heads/master'
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v7
       with:
-        node-version: 14.x
+        node-version: 26.x
     - name: Restore client dependencies
       run: |
         cd client
@@ -98,9 +98,9 @@ jobs:
         cd ../..
         
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v6
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 10.0.x
     - name: Restore server dependencies
       run: |
         cd server
@@ -112,7 +112,7 @@ jobs:
         
     - name: Move
       run: |
-        mv client/dist/application server/dist/wwwroot
+        mv client/dist/application/browser server/dist/wwwroot
         mv client/projects/karel/dist/karel.js server/dist/karel.js
         mv client/projects/karel-evaluation/dist/karel-evaluation.js server/dist/karel-evaluation.js
     - name: Write secrets
@@ -125,7 +125,7 @@ jobs:
         echo "$SERVER_APP_SETTINGS" > appsettings.json
         echo "$SERVER_FIREBASE_CREDENTIAL" > firebase.json
     - name: Upload to FTP
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      uses: SamKirkland/FTP-Deploy-Action@v4.4.0
       with:
         server: ${{ secrets.HOSTING_FTP_SERVER }}
         username: ${{ secrets.HOSTING_FTP_USERNAME }}

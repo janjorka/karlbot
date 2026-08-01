@@ -12,11 +12,10 @@ using KarlBot.OptionsConfigurations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
@@ -59,17 +58,12 @@ builder.Services.AddSwaggerGen(o =>
         Type = SecuritySchemeType.Http,
         Scheme = JwtBearerDefaults.AuthenticationScheme,
         Description = "JWT token",
-        BearerFormat = "JWT",
-        Reference = new OpenApiReference
-        {
-            Type = ReferenceType.SecurityScheme,
-            Id = "JwtToken"
-        }
+        BearerFormat = "JWT"
     };
-    o.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
-    o.AddSecurityRequirement(new OpenApiSecurityRequirement
+    o.AddSecurityDefinition("JwtToken", jwtSecurityScheme);
+    o.AddSecurityRequirement(document => new OpenApiSecurityRequirement
     {
-        { jwtSecurityScheme, Array.Empty<string>() }
+        { new OpenApiSecuritySchemeReference("JwtToken", document), [] }
     });
 
     // From https://learn.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle.

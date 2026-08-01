@@ -34,7 +34,7 @@ namespace Infrastructure.Tests.Repositories
 
             var actual = await repository.GetByIdWithSubmissionsInfoAsync(Guid1, Guid2);
 
-            Assert.NotNull(actual);
+            Assert.That(actual, Is.Not.Null);
             AssertEquals(Challenge1, actual.Challenge);
             Assert.That(actual.OwnSuccessfulSubmissionCount, Is.EqualTo(1));
             Assert.That(actual.OwnSubmissionCount, Is.EqualTo(1));

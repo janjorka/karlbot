@@ -66,9 +66,9 @@ For user authentication is used [Firebase Authentication](https://firebase.googl
 Prerequisites:
 - Windows (or Linux &ndash; not tested, but it should work)
 - [Git](https://git-scm.com/downloads) installed
-- [.NET 7 SDK](https://dotnet.microsoft.com/en-us/download) installed
+- [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download) installed
 - [SQL Server Express LocalDB](https://learn.microsoft.com/en-us/sql/database-engine/configure-windows/sql-server-express-localdb?view=sql-server-ver16) (or another SQL Server distribution) installed and running
-- [Node.js 18](https://nodejs.org/) installed
+- [Node.js 26](https://nodejs.org/) installed
 - [Firebase CLI](https://firebase.google.com/docs/cli#install_the_firebase_cli) installed (`npm install -g firebase-tools`)
 - [Angular CLI](https://angular.io/cli#installing-angular-cli) installed (`npm install -g @angular/cli`)
 

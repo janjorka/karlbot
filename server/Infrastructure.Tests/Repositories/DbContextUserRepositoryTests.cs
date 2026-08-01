@@ -15,7 +15,7 @@ namespace Infrastructure.Tests.Repositories
 
             var actual = await repository.GetRolesAsync(User2.Id);
 
-            CollectionAssert.AreEquivalent(new[] { "Role2", "Role3" }, actual);
+            Assert.That(actual, Is.EquivalentTo(new[] { "Role2", "Role3" }));
         }
 
         [Test]
@@ -26,7 +26,7 @@ namespace Infrastructure.Tests.Repositories
 
             var actual = await repository.GetRolesAsync(NotUsedGuid);
 
-            Assert.Null(actual);
+            Assert.That(actual, Is.Null);
         }
 
         protected override DbContextUserRepository CreateRepository(ApplicationDbContext dbContext) =>

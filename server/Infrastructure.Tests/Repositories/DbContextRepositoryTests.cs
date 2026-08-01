@@ -29,7 +29,7 @@ namespace Infrastructure.Tests.Repositories
 
             var actual = await repository.GetByIdAsync(expectedId);
 
-            Assert.NotNull(actual);
+            Assert.That(actual, Is.Not.Null);
             AssertEquals(expected, actual);
         }
 
@@ -41,7 +41,7 @@ namespace Infrastructure.Tests.Repositories
 
             var project = await repository.GetByIdAsync(GetNotUsedEntityId());
 
-            Assert.Null(project);
+            Assert.That(project, Is.Null);
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace Infrastructure.Tests.Repositories
 
             var exists = await repository.ExistsByIdAsync(expectedId);
 
-            Assert.True(exists);
+            Assert.That(exists, Is.True);
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace Infrastructure.Tests.Repositories
 
             var exists = await repository.ExistsByIdAsync(GetNotUsedEntityId());
 
-            Assert.False(exists);
+            Assert.That(exists, Is.False);
         }
 
         [Test]
@@ -80,7 +80,7 @@ namespace Infrastructure.Tests.Repositories
             dbContext.ChangeTracker.Clear();
 
             var added = await dbContext.Set<TEntity>().FindAsync(GetEntityId(toAdd));
-            Assert.NotNull(added);
+            Assert.That(added, Is.Not.Null);
             AssertEquals(toAdd, added);
         }
 
@@ -97,7 +97,7 @@ namespace Infrastructure.Tests.Repositories
             dbContext.ChangeTracker.Clear();
 
             var updatedProject = await dbContext.Set<TEntity>().FindAsync(GetEntityId(toUpdate));
-            Assert.NotNull(updatedProject);
+            Assert.That(updatedProject, Is.Not.Null);
             AssertEquals(toUpdate, updatedProject);
         }
 
@@ -113,7 +113,7 @@ namespace Infrastructure.Tests.Repositories
             dbContext.ChangeTracker.Clear();
 
             var removed = await dbContext.Set<TEntity>().FindAsync(GetEntityId(toRemove));
-            Assert.Null(removed);
+            Assert.That(removed, Is.Null);
         }
 
         protected abstract DbContextRepository<TEntity, TKey> CreateRepository(ApplicationDbContext dbContext);
