@@ -1,5 +1,5 @@
-import { CommonModule } from "@angular/common";
-import { Component, ElementRef, Input, ViewChild, AfterViewInit, OnDestroy, Output, EventEmitter } from "@angular/core";
+
+import { Component, ElementRef, Input, ViewChild, AfterViewInit, OnDestroy, Output, EventEmitter, ChangeDetectionStrategy } from "@angular/core";
 import { Vector } from "karel";
 import { ReadonlyTown } from "karel";
 import { TownCamera } from "../../town/town-camera";
@@ -11,10 +11,10 @@ import { TownViewport } from "../../town/town-viewport";
  * Displays a town.
  */
 @Component({
-    standalone: true,
     selector: "app-town-view",
-    imports: [CommonModule],
+    imports: [],
     templateUrl: "./town-view.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./town-view.component.css"]
 })
 export class TownViewComponent implements AfterViewInit, OnDestroy {

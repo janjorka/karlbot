@@ -5,6 +5,11 @@ import { InjectionToken } from "@angular/core";
 import { IS_ANONYMOUS_ENDPOINT } from "../../http-context-tokens/is-anonymous-endpoint";
 
 /**
+ * Base URL of the API without trailing slash.
+ */
+export const API_BASE_URL = new InjectionToken<string>("API base URL.");
+
+/**
  * Service for communication with server API.
  */
 @Injectable({
@@ -71,11 +76,6 @@ export class APIService {
         };
     }
 }
-
-/**
- * Base URL of the API without trailing slash.
- */
-export const API_BASE_URL = new InjectionToken<string>("API base URL.");
 
 /**
  * API endpoint options.

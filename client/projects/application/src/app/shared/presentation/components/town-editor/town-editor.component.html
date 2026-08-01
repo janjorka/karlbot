@@ -1,27 +1,33 @@
-<app-town-view class="town-view" [town]="town" [camera]="camera" (cameraChange)="onTownViewCameraChange($event)" 
-    appTownViewMove [touchMoveDisabled]="!selectionDisabled"
-    appTownViewSelect [selectionDisabled]="selectionDisabled" [selectionMode]="selectionMode" (select)="onSelect($event)"
+<app-town-view class="town-view" [town]="town" [camera]="camera" (cameraChange)="onTownViewCameraChange($event)"
+  appTownViewMove [touchMoveDisabled]="!selectionDisabled"
+  appTownViewSelect [selectionDisabled]="selectionDisabled" [selectionMode]="selectionMode" (select)="onSelect($event)"
 ></app-town-view>
 
 <mat-toolbar class="toolbar">
-    <mat-button-toggle-group class="toolbar-tools" [value]="selectedTool" (valueChange)="selectedTool = $event">
-        <mat-button-toggle [value]="tool.tool" *ngFor="let tool of tools">
-            <mat-icon *ngIf="tool.iconSrc !== undefined" [matBadgeHidden]="tool.action === undefined" [matBadge]="getToolButtonActionText(tool)" [matBadgeColor]="getToolButtonActionColor(tool)" matBadgeSize="small" matBadgePosition="below after">
-                <img class="toolbar-tool-icon" [src]="tool.iconSrc">
-            </mat-icon>
-            <mat-icon *ngIf="tool.iconName !== undefined" class="toolbar-tool-icon" [matBadgeHidden]="tool.action === undefined" [matBadge]="getToolButtonActionText(tool)" [matBadgeColor]="getToolButtonActionColor(tool)" matBadgeSize="small" matBadgePosition="below after">{{tool.iconName}}</mat-icon>
-        </mat-button-toggle>
-    </mat-button-toggle-group>
+  <mat-button-toggle-group class="toolbar-tools" [value]="selectedTool" (valueChange)="selectedTool = $event">
+    @for (tool of tools; track tool) {
+      <mat-button-toggle [value]="tool.tool">
+        @if (tool.iconSrc !== undefined) {
+          <mat-icon [matBadgeHidden]="tool.action === undefined" [matBadge]="getToolButtonActionText(tool)" [matBadgeColor]="getToolButtonActionColor(tool)" matBadgeSize="small" matBadgePosition="below after">
+            <img class="toolbar-tool-icon" [src]="tool.iconSrc">
+          </mat-icon>
+        }
+        @if (tool.iconName !== undefined) {
+          <mat-icon class="toolbar-tool-icon" [matBadgeHidden]="tool.action === undefined" [matBadge]="getToolButtonActionText(tool)" [matBadgeColor]="getToolButtonActionColor(tool)" matBadgeSize="small" matBadgePosition="below after">{{tool.iconName}}</mat-icon>
+        }
+      </mat-button-toggle>
+    }
+  </mat-button-toggle-group>
 
-    <mat-form-field class="toolbar-width" appearance="outline" subscriptSizing="dynamic">
-        <mat-label>Width</mat-label>
-        <input type="number" matInput appValidatedInput [validator]="SIZE_VALIDATOR"
-            [validatedValue]="town !== null ? town.width.toString() : '0'" (validatedValueChange)="onSizeChange($event, undefined)">
+  <mat-form-field class="toolbar-width" appearance="outline" subscriptSizing="dynamic">
+    <mat-label>Width</mat-label>
+    <input type="number" matInput appValidatedInput [validator]="SIZE_VALIDATOR"
+      [validatedValue]="town !== null ? town.width.toString() : '0'" (validatedValueChange)="onSizeChange($event, undefined)">
     </mat-form-field>
 
     <mat-form-field class="toolbar-height" appearance="outline" subscriptSizing="dynamic">
-        <mat-label>Height</mat-label>
-        <input type="number" matInput appValidatedInput [validator]="SIZE_VALIDATOR"
-            [validatedValue]="town !== null ? town.height.toString() : '0'" (validatedValueChange)="onSizeChange(undefined, $event)">
-    </mat-form-field>
-</mat-toolbar>
+      <mat-label>Height</mat-label>
+      <input type="number" matInput appValidatedInput [validator]="SIZE_VALIDATOR"
+        [validatedValue]="town !== null ? town.height.toString() : '0'" (validatedValueChange)="onSizeChange(undefined, $event)">
+      </mat-form-field>
+    </mat-toolbar>

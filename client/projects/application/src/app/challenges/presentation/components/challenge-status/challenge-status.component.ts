@@ -1,5 +1,5 @@
-import { Component, Input } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, Input, ChangeDetectionStrategy } from "@angular/core";
+
 import { ChallengeSubmissionsInfo } from "projects/application/src/app/shared/application/models/challenge-submissions.info";
 import { MatIconModule } from "@angular/material/icon";
 
@@ -8,9 +8,9 @@ import { MatIconModule } from "@angular/material/icon";
  */
 @Component({
     selector: "app-challenge-status",
-    standalone: true,
-    imports: [CommonModule, MatIconModule],
+    imports: [MatIconModule],
     templateUrl: "./challenge-status.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./challenge-status.component.css"]
 })
 export class ChallengeStatusComponent {

@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output } from "@angular/core";
+import { Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output, ChangeDetectionStrategy } from "@angular/core";
 import { TownViewSelectDirective, TownViewSelectionEvent, TownViewSelectionMode } from "projects/application/src/app/shared/presentation/directives/town-view-select.directive";
 import { TownCamera } from "projects/application/src/app/shared/presentation/town/town-camera";
 import { Vector } from "karel";
@@ -18,7 +18,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { TownViewMoveDirective } from "projects/application/src/app/shared/presentation/directives/town-view-move.directive";
 import { TownViewComponent } from "projects/application/src/app/shared/presentation/components/town-view/town-view.component";
 import { MatMenuModule } from "@angular/material/menu";
-import { CommonModule } from "@angular/common";
+
 import { MatInputModule } from "@angular/material/input";
 import { MatBadgeModule } from "@angular/material/badge";
 
@@ -26,11 +26,10 @@ import { MatBadgeModule } from "@angular/material/badge";
  * Town editor.
  */
 @Component({
-    standalone: true,
     selector: "app-town-editor",
-    imports: [CommonModule, ValidatedInputDirective, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonToggleModule, MatToolbarModule, 
-        TownViewSelectDirective, TownViewMoveDirective, TownViewComponent, MatMenuModule, MatBadgeModule],
+    imports: [ValidatedInputDirective, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonToggleModule, MatToolbarModule, TownViewSelectDirective, TownViewMoveDirective, TownViewComponent, MatMenuModule, MatBadgeModule],
     templateUrl: "./town-editor.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./town-editor.component.css"]
 })
 export class TownEditorComponent {

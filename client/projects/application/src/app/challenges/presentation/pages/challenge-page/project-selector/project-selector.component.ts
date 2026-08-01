@@ -1,5 +1,5 @@
-import { Component, Inject } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, Inject, ChangeDetectionStrategy } from "@angular/core";
+
 import { MAT_BOTTOM_SHEET_DATA } from "@angular/material/bottom-sheet";
 import { MatBottomSheetRef } from "@angular/material/bottom-sheet";
 import { SavedProject } from "projects/application/src/app/shared/application/models/saved-project";
@@ -11,9 +11,9 @@ import { DateAgoPipe } from "projects/application/src/app/shared/presentation/pi
  */
 @Component({
     selector: "app-project-selector",
-    standalone: true,
-    imports: [CommonModule, MatListModule, DateAgoPipe],
+    imports: [MatListModule, DateAgoPipe],
     templateUrl: "./project-selector.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./project-selector.component.css"]
 })
 export class ProjectSelectorComponent {

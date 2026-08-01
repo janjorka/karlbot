@@ -1,5 +1,5 @@
-import { CommonModule } from "@angular/common";
-import { Component, Inject } from "@angular/core";
+
+import { Component, Inject, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialogModule, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ValidatedInputDirective } from "../../directives/validated-input.directive";
@@ -8,10 +8,10 @@ import { ValidatedInputDirective } from "../../directives/validated-input.direct
  * Dialog with yes/no options.
  */
 @Component({
-    standalone: true,
     selector: "app-confirmation-dialog",
-    imports: [CommonModule, MatDialogModule, ValidatedInputDirective, MatButtonModule],
+    imports: [MatDialogModule, ValidatedInputDirective, MatButtonModule],
     templateUrl: "./confirmation-dialog.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./confirmation-dialog.component.css"]
 })
 export class ConfirmationDialogComponent {

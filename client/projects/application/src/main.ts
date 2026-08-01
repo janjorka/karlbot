@@ -1,5 +1,5 @@
-import { provideHttpClient, withInterceptors } from "@angular/common/http";
-import { importProvidersFrom, ErrorHandler, isDevMode } from "@angular/core";
+import { provideHttpClient, withInterceptors, withXhr } from "@angular/common/http";
+import { importProvidersFrom, ErrorHandler, isDevMode, provideZoneChangeDetection } from "@angular/core";
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
@@ -23,23 +23,25 @@ import { API_BASE_URL } from "./app/shared/application/services/api/api-service"
  */
 bootstrapApplication(AppComponent, {
     providers: [
+        provideZoneChangeDetection(),
         provideRouter(appRoutes),
         provideHttpClient(
+            withXhr(),
             withInterceptors([TokenInterceptor, LoadingInterceptor])
         ),
         provideAnimations(),
+        provideFirebaseApp(() => initializeApp(environment.firebase)),
+        provideAuth(() => {
+            const auth = getAuth();
+            if (isDevMode()) {
+                if (environment.firebaseAuthenticationEmulatorURL === null)
+                    throw new Error("Emulator URL is required in development mode.");
+
+                connectAuthEmulator(auth, environment.firebaseAuthenticationEmulatorURL, { disableWarnings: true });
+            }
+            return auth;
+        }),
         importProvidersFrom(
-            provideFirebaseApp(() => initializeApp(environment.firebase)),
-            provideAuth(() => {
-                const auth = getAuth();
-                if (isDevMode()) {
-                    if (environment.firebaseAuthenticationEmulatorURL === null)
-                        throw new Error("Emulator URL is required in development mode.");
-                    
-                    connectAuthEmulator(auth, environment.firebaseAuthenticationEmulatorURL, { disableWarnings: true });
-                }
-                return auth;
-            }),
             MatDialogModule,
             MatBottomSheetModule,
             MatSnackBarModule

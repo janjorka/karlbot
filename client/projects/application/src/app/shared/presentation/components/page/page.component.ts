@@ -1,14 +1,13 @@
-import { Component, Input } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, Input, ChangeDetectionStrategy } from "@angular/core";
 
 /**
  * Page skeleton. Use an element with `page-title` attribute to provide a title.
  */
 @Component({
     selector: "app-page",
-    standalone: true,
-    imports: [CommonModule],
+    imports: [],
     templateUrl: "./page.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./page.component.css"]
 })
 export class PageComponent {

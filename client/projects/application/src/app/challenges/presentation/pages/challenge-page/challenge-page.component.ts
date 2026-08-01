@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
+
 import { ActivatedRoute } from "@angular/router";
 import { Challenge } from "projects/application/src/app/shared/application/models/challenge";
 import { ChallengeSubmission } from "projects/application/src/app/shared/application/models/challenge-submission";
@@ -32,9 +32,9 @@ import { MarkdownViewComponent } from "projects/application/src/app/shared/prese
  */
 @Component({
     selector: "app-challenge-page",
-    standalone: true,
-    imports: [CommonModule, MatButtonModule, MatIconModule, PageComponent, ChallengeSubmissionComponent, TownViewComponent, MarkdownViewComponent, ChallengeDifficultyComponent, TownViewFitContainDirective, ChallengeStatusComponent],
+    imports: [MatButtonModule, MatIconModule, PageComponent, ChallengeSubmissionComponent, TownViewComponent, MarkdownViewComponent, ChallengeDifficultyComponent, TownViewFitContainDirective, ChallengeStatusComponent],
     templateUrl: "./challenge-page.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./challenge-page.component.css"]
 })
 export class ChallengePageComponent {

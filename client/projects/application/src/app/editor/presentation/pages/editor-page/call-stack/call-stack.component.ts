@@ -1,5 +1,5 @@
-import { CommonModule } from "@angular/common";
-import { Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+
+import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
 import { PanelComponent } from "../../../components/panel/panel.component";
@@ -10,9 +10,9 @@ import { ReadonlyCallStackFrame } from "karel";
  */
 @Component({
     selector: "app-call-stack",
-    standalone: true,
-    imports: [CommonModule, MatIconModule, MatListModule, PanelComponent],
+    imports: [MatIconModule, MatListModule, PanelComponent],
     templateUrl: "./call-stack.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./call-stack.component.css"]
 })
 export class CallStackComponent implements OnChanges {

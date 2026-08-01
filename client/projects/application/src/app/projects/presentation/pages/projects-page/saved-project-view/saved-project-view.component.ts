@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { CommonModule, DatePipe } from "@angular/common";
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from "@angular/core";
+import { DatePipe } from "@angular/common";
 import { SavedProject } from "projects/application/src/app/shared/application/models/saved-project";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
@@ -17,9 +17,9 @@ import { TownViewFitContainDirective } from "projects/application/src/app/shared
  */
 @Component({
     selector: "app-saved-project-view",
-    standalone: true,
-    imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, MatMenuModule, MatRippleModule, TownViewComponent, StopClickPropagationDirective, DatePipe, DateAgoPipe, TownViewFitContainDirective],
+    imports: [MatCardModule, MatIconModule, MatButtonModule, MatMenuModule, MatRippleModule, TownViewComponent, StopClickPropagationDirective, DatePipe, DateAgoPipe, TownViewFitContainDirective],
     templateUrl: "./saved-project-view.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./saved-project-view.component.css"]
 })
 export class SavedProjectViewComponent {

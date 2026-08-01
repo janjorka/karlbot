@@ -1,2 +1,6 @@
-<mat-icon *ngIf="status === 'attempted'" class="icon-attempted">flag</mat-icon>
-<mat-icon *ngIf="status === 'done'" class="icon-done">task_alt</mat-icon>
+@if (status === 'attempted') {
+  <mat-icon class="icon-attempted">flag</mat-icon>
+}
+@if (status === 'done') {
+  <mat-icon class="icon-done">task_alt</mat-icon>
+}

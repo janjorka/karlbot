@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
+
 import { MatIconModule } from "@angular/material/icon";
 
 /**
@@ -7,9 +7,9 @@ import { MatIconModule } from "@angular/material/icon";
  */
 @Component({
     selector: "app-not-found-page",
-    standalone: true,
-    imports: [CommonModule, MatIconModule],
+    imports: [MatIconModule],
     templateUrl: "./not-found-page.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./not-found-page.component.css"]
 })
 export class NotFoundPageComponent {

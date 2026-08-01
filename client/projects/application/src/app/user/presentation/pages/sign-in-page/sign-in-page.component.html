@@ -1,6 +1,8 @@
 <app-page>
-    <span page-title>Sign in</span>
-    <div class="sign-in-options">
-        <app-google-sign-in-button *ngIf="!inProgress" (click)="onSignInWithGoogleClick()"></app-google-sign-in-button>
-    </div>
+  <span page-title>Sign in</span>
+  <div class="sign-in-options">
+    @if (!inProgress) {
+      <app-google-sign-in-button (click)="onSignInWithGoogleClick()"></app-google-sign-in-button>
+    }
+  </div>
 </app-page>

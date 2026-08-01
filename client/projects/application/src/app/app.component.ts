@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -19,10 +19,10 @@ import { GlobalLoaderComponent } from "./shared/presentation/components/global-l
  * Root application component. Provides layout for all pages of the application.
  */
 @Component({
-    standalone: true,
     selector: "app-root",
     imports: [CommonModule, RouterModule, MatSlideToggleModule, MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatMenuModule, MatDividerModule, MatListModule, MatRippleModule, GlobalLoaderComponent],
     templateUrl: "./app.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements OnInit, OnDestroy {

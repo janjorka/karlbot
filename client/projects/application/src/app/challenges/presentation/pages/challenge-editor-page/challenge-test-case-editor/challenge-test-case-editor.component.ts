@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from "@angular/core";
+
 import { EditorChallengeTestCase } from "../editor-challenge-test-case";
 import { TownCamera } from "projects/application/src/app/shared/presentation/town/town-camera";
 import { TownEditorComponent } from "projects/application/src/app/shared/presentation/components/town-editor/town-editor.component";
@@ -11,9 +11,9 @@ import { MutableTown, Vector } from "karel";
  */
 @Component({
     selector: "app-challenge-test-case-editor",
-    standalone: true,
-    imports: [CommonModule, TownEditorComponent, MatChipsModule],
+    imports: [TownEditorComponent, MatChipsModule],
     templateUrl: "./challenge-test-case-editor.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./challenge-test-case-editor.component.css"]
 })
 export class ChallengeTestCaseEditorComponent {

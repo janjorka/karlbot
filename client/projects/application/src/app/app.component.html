@@ -1,89 +1,93 @@
 <ng-template #title>
-    <div class="title">
-        <img class="title-icon" src="assets/logo.png" alt="KarlBot application logo">
-        <span class="title-text">KarlBot</span>
-    </div>
+  <div class="title">
+    <img class="title-icon" src="assets/logo.png" alt="KarlBot application logo">
+    <span class="title-text">KarlBot</span>
+  </div>
 </ng-template>
 
 <ng-template #darkModeSwitch>
-    <mat-slide-toggle [checked]="(colorThemeService.colorTheme$ | async) === 'dark'" (change)="onColorThemeChange($event.checked)">
-        <span class="dark-mode-switch-text">Dark Mode</span>
-    </mat-slide-toggle>
+  <mat-slide-toggle [checked]="(colorThemeService.colorTheme$ | async) === 'dark'" (change)="onColorThemeChange($event.checked)">
+    <span class="dark-mode-switch-text">Dark Mode</span>
+  </mat-slide-toggle>
 </ng-template>
 
 <ng-template #userGuideButton>
-    <a mat-icon-button routerLink="/user-guide" (click)="drawer.close()">
-        <mat-icon>help</mat-icon>
-    </a>
+  <a mat-icon-button routerLink="/user-guide" (click)="drawer.close()">
+    <mat-icon>help</mat-icon>
+  </a>
 </ng-template>
 
 <mat-sidenav-container class="drawer-and-content-wrapper">
-    <mat-sidenav #drawer mode="over">
-        <div class="drawer">
-            <div class="drawer-header">
-                <ng-container *ngTemplateOutlet="title"></ng-container>
-            </div>
-            <mat-divider></mat-divider>
-            <div class="drawer-navigation">
-                <a class="drawer-navigation-item" routerLink="/editor" routerLinkActive="active" matRipple (click)="drawer.close()">
-                    <mat-icon class="drawer-navigation-item-icon">code</mat-icon>
-                    Editor
-                </a>
-                <a class="drawer-navigation-item" routerLink="/projects" routerLinkActive="active" matRipple (click)="drawer.close()">
-                    <mat-icon class="drawer-navigation-item-icon">apps</mat-icon>
-                    Projects
-                </a>
-                <a class="drawer-navigation-item" routerLink="/challenges" routerLinkActive="active" matRipple (click)="drawer.close()">
-                    <mat-icon class="drawer-navigation-item-icon">star</mat-icon>
-                    Challenges
-                </a>
-            </div>
-            <div class="spacer"></div>
-            <div class="drawer-footer">
-                <ng-container *ngTemplateOutlet="darkModeSwitch"></ng-container>
-                <div class="spacer"></div>
-                <ng-container *ngTemplateOutlet="userGuideButton"></ng-container>
-            </div>
-        </div>
-    </mat-sidenav>
-    <mat-sidenav-content class="content">
-        <mat-toolbar color="primary" class="app-bar">
-            <button mat-icon-button class="app-bar-drawer-trigger" (click)="drawer.toggle()">
-                <mat-icon>menu</mat-icon>
-            </button>
-            <ng-container *ngTemplateOutlet="title"></ng-container>
-            <div class="navigation">
-                <a mat-button routerLink="/">Editor</a>
-                <a mat-button routerLink="/projects">Projects</a>
-                <a mat-button routerLink="/challenges">Challenges</a>
-            </div>
-            <div class="spacer"></div>
-            <div class="app-bar-dark-mode-switch">
-                <ng-container *ngTemplateOutlet="darkModeSwitch"></ng-container>
-            </div>
-            <div class="app-bar-dark-user-guide-button">
-                <ng-container *ngTemplateOutlet="userGuideButton"></ng-container>
-            </div>
-            <a mat-button *ngIf="(authenticationService.currentUser$ | async) === null" routerLink="/user/sign-in">Sign in</a>
-            <button *ngIf="(authenticationService.currentUser$ | async) !== null" mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>account_circle</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item routerLink="/projects">
-                    <mat-icon>person</mat-icon>
-                    <span>{{(authenticationService.currentUser$ | async)?.email}}</span>
-                </button>
-                <button mat-menu-item (click)="onSignOutClick()">
-                    <mat-icon>logout</mat-icon>
-                    <span>Sign out</span>
-                </button>
-            </mat-menu>
-        </mat-toolbar>
+  <mat-sidenav #drawer mode="over">
+    <div class="drawer">
+      <div class="drawer-header">
+        <ng-container *ngTemplateOutlet="title"></ng-container>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="drawer-navigation">
+        <a class="drawer-navigation-item" routerLink="/editor" routerLinkActive="active" matRipple (click)="drawer.close()">
+          <mat-icon class="drawer-navigation-item-icon">code</mat-icon>
+          Editor
+        </a>
+        <a class="drawer-navigation-item" routerLink="/projects" routerLinkActive="active" matRipple (click)="drawer.close()">
+          <mat-icon class="drawer-navigation-item-icon">apps</mat-icon>
+          Projects
+        </a>
+        <a class="drawer-navigation-item" routerLink="/challenges" routerLinkActive="active" matRipple (click)="drawer.close()">
+          <mat-icon class="drawer-navigation-item-icon">star</mat-icon>
+          Challenges
+        </a>
+      </div>
+      <div class="spacer"></div>
+      <div class="drawer-footer">
+        <ng-container *ngTemplateOutlet="darkModeSwitch"></ng-container>
+        <div class="spacer"></div>
+        <ng-container *ngTemplateOutlet="userGuideButton"></ng-container>
+      </div>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content class="content">
+    <mat-toolbar color="primary" class="app-bar">
+      <button mat-icon-button class="app-bar-drawer-trigger" (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <ng-container *ngTemplateOutlet="title"></ng-container>
+      <div class="navigation">
+        <a mat-button routerLink="/">Editor</a>
+        <a mat-button routerLink="/projects">Projects</a>
+        <a mat-button routerLink="/challenges">Challenges</a>
+      </div>
+      <div class="spacer"></div>
+      <div class="app-bar-dark-mode-switch">
+        <ng-container *ngTemplateOutlet="darkModeSwitch"></ng-container>
+      </div>
+      <div class="app-bar-dark-user-guide-button">
+        <ng-container *ngTemplateOutlet="userGuideButton"></ng-container>
+      </div>
+      @if ((authenticationService.currentUser$ | async) === null) {
+        <a mat-button routerLink="/user/sign-in">Sign in</a>
+      }
+      @if ((authenticationService.currentUser$ | async) !== null) {
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+      }
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/projects">
+          <mat-icon>person</mat-icon>
+          <span>{{(authenticationService.currentUser$ | async)?.email}}</span>
+        </button>
+        <button mat-menu-item (click)="onSignOutClick()">
+          <mat-icon>logout</mat-icon>
+          <span>Sign out</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
 
-        <div class="page">
-            <router-outlet></router-outlet>
-        </div>
+    <div class="page">
+      <router-outlet></router-outlet>
+    </div>
 
-        <app-global-loader></app-global-loader>
-    </mat-sidenav-content>
+    <app-global-loader></app-global-loader>
+  </mat-sidenav-content>
 </mat-sidenav-container>

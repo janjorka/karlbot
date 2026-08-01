@@ -1,5 +1,5 @@
-import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from "@angular/core";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
@@ -11,10 +11,10 @@ import { PanelComponent } from "../../../components/panel/panel.component";
  * Editor of the project run settings.
  */
 @Component({
-    standalone: true,
     selector: "app-settings",
-    imports: [CommonModule, ValidatedInputDirective, MatFormFieldModule, MatInputModule, MatSelectModule, PanelComponent],
+    imports: [ValidatedInputDirective, MatFormFieldModule, MatInputModule, MatSelectModule, PanelComponent],
     templateUrl: "./settings.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./settings.component.css"]
 })
 export class SettingsComponent {

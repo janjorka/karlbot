@@ -1,5 +1,5 @@
-import { CommonModule } from "@angular/common";
-import { Component, Inject } from "@angular/core";
+
+import { Component, Inject, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -11,10 +11,10 @@ import { AbstractControl, FormControl, ReactiveFormsModule, ValidationErrors, Va
  * Dialog allowing to enter a validated text.
  */
 @Component({
-    standalone: true,
     selector: "app-prompt-dialog",
-    imports: [CommonModule, MatDialogModule, ValidatedInputDirective, MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule],
+    imports: [MatDialogModule, ValidatedInputDirective, MatFormFieldModule, MatInputModule, MatButtonModule, ReactiveFormsModule],
     templateUrl: "./prompt-dialog.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./prompt-dialog.component.css"]
 })
 export class PromptDialogComponent {

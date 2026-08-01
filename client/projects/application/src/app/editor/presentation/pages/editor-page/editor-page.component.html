@@ -1,122 +1,128 @@
 <ng-template #header>
-    <app-header 
-        class="header"
-        [runState]="(editorService.runState$ | async)!"
-        [projectName]="(editorService.project$ | async)!.name"
-        [isProjectOwn]="(editorService.isProjectOwn$ | async) ?? false"
-        [availableEntryPoints]="(editorService.availableEntryPoints$ | async)!"
-        [entryPoint]="(editorService.project$ | async)!.settings.entryPoint"
-        [canUndo]="(editorService.activeArea$ | async) === 'code'"
-        [canRedo]="(editorService.activeArea$ | async) === 'code'"
-        (projectNameChange)="editorService.changeProjectName($event)"
-        (entryPointChange)="editorService.changeEntryPoint($event)"
-        (newClick)="editorService.newProject()"
-        (saveClick)="editorService.saveProject()"
-        (shareClick)="editorService.share()"
-        (importClick)="editorService.importProject()"
-        (exportClick)="editorService.exportProject()"
-        (undoClick)="onUndoClick()"
-        (redoClick)="onRedoClick()"
-        (runClick)="editorService.run(false)"
-        (runReadonlyClick)="editorService.run(true)"
-        (stopClick)="editorService.stop()"
-        (pauseClick)="editorService.pause()"
-        (continueClick)="editorService.continue()"
-        (stepIntoClick)="editorService.stepInto()"
-        (stepOverClick)="editorService.stepOver()"
-        (stepOutClick)="editorService.stepOut()">
-    </app-header>
+  <app-header
+    class="header"
+    [runState]="(editorService.runState$ | async)!"
+    [projectName]="(editorService.project$ | async)!.name"
+    [isProjectOwn]="(editorService.isProjectOwn$ | async) ?? false"
+    [availableEntryPoints]="(editorService.availableEntryPoints$ | async)!"
+    [entryPoint]="(editorService.project$ | async)!.settings.entryPoint"
+    [canUndo]="(editorService.activeArea$ | async) === 'code'"
+    [canRedo]="(editorService.activeArea$ | async) === 'code'"
+    (projectNameChange)="editorService.changeProjectName($event)"
+    (entryPointChange)="editorService.changeEntryPoint($event)"
+    (newClick)="editorService.newProject()"
+    (saveClick)="editorService.saveProject()"
+    (shareClick)="editorService.share()"
+    (importClick)="editorService.importProject()"
+    (exportClick)="editorService.exportProject()"
+    (undoClick)="onUndoClick()"
+    (redoClick)="onRedoClick()"
+    (runClick)="editorService.run(false)"
+    (runReadonlyClick)="editorService.run(true)"
+    (stopClick)="editorService.stop()"
+    (pauseClick)="editorService.pause()"
+    (continueClick)="editorService.continue()"
+    (stepIntoClick)="editorService.stepInto()"
+    (stepOverClick)="editorService.stepOver()"
+    (stepOutClick)="editorService.stepOut()">
+  </app-header>
 </ng-template>
 
 <ng-template #fileExplorer>
-    <app-file-explorer 
-        class="file-explorer"
-        [files]="(editorService.project$ | async)!.files"
-        [selectedCodeFile]="(editorService.selectedCodeFile$ | async)!"
-        [selectedTownFile]="(editorService.selectedTownFile$ | async)!"
-        [disableTownFileSelect]="(editorService.runState$ | async)! !== 'ready'"
-        [readonly]="(editorService.runState$ | async)! !== 'ready'"
-        (codeFileAdd)="editorService.addCodeFile($event)"
-        (townFileAdd)="editorService.addTownFile($event)"
-        (fileRemove)="editorService.removeFile($event)"
-        (fileRename)="editorService.renameFile($event.file, $event.newName)"
-        (fileSelect)="editorService.selectFile($event)">
-    </app-file-explorer>
+  <app-file-explorer
+    class="file-explorer"
+    [files]="(editorService.project$ | async)!.files"
+    [selectedCodeFile]="(editorService.selectedCodeFile$ | async)!"
+    [selectedTownFile]="(editorService.selectedTownFile$ | async)!"
+    [disableTownFileSelect]="(editorService.runState$ | async)! !== 'ready'"
+    [readonly]="(editorService.runState$ | async)! !== 'ready'"
+    (codeFileAdd)="editorService.addCodeFile($event)"
+    (townFileAdd)="editorService.addTownFile($event)"
+    (fileRemove)="editorService.removeFile($event)"
+    (fileRename)="editorService.renameFile($event.file, $event.newName)"
+    (fileSelect)="editorService.selectFile($event)">
+  </app-file-explorer>
 </ng-template>
 
 <ng-template #codeEditor>
-    <app-code-editor
-        class="code-editor" 
-        [code]="(editorService.currentCode$ | async) ?? ''"
-        [readonly]="(editorService.runState$ | async)! !== 'ready' || (editorService.currentCode$ | async) === null"
-        [errors]="(editorService.errorsInCurrentCodeFile$ | async)!"
-        [currentRange]="(editorService.currentRange$ | async)!"
-        [breakpoints]="(editorService.selectedCodeFile$ | async)?.breakpoints ?? []"
-        [completionItemsProvider]="completionItemsProvider"
-        (codeChange)="editorService.changeCode($event)"
-        (breakpointsChange)="editorService.changeBreakpoints($event)"
-        (focusin)="onCodeEditorFocusIn()">
-    </app-code-editor>
+  <app-code-editor
+    class="code-editor"
+    [code]="(editorService.currentCode$ | async) ?? ''"
+    [readonly]="(editorService.runState$ | async)! !== 'ready' || (editorService.currentCode$ | async) === null"
+    [errors]="(editorService.errorsInCurrentCodeFile$ | async)!"
+    [currentRange]="(editorService.currentRange$ | async)!"
+    [breakpoints]="(editorService.selectedCodeFile$ | async)?.breakpoints ?? []"
+    [completionItemsProvider]="completionItemsProvider"
+    (codeChange)="editorService.changeCode($event)"
+    (breakpointsChange)="editorService.changeBreakpoints($event)"
+    (focusin)="onCodeEditorFocusIn()">
+  </app-code-editor>
 </ng-template>
 
 <ng-template #townEditor>
-    <app-town-editor 
-        class="town-editor" 
-        [town]="(editorService.currentTown$ | async)!" 
-        [camera]="(editorService.currentTownCamera$ | async)!"
-        (cameraChange)="editorService.changeCurrentTownCamera($event)"
-        (focusin)="onTownEditorFocusIn()">
-    </app-town-editor>
+  <app-town-editor
+    class="town-editor"
+    [town]="(editorService.currentTown$ | async)!"
+    [camera]="(editorService.currentTownCamera$ | async)!"
+    (cameraChange)="editorService.changeCurrentTownCamera($event)"
+    (focusin)="onTownEditorFocusIn()">
+  </app-town-editor>
 </ng-template>
 
 <ng-template #settings>
-    <app-settings 
-        class="settings" 
-        [settings]="(editorService.project$ | async)!.settings" 
-        (settingsChange)="editorService.changeSettings($event)">
-    </app-settings>
+  <app-settings
+    class="settings"
+    [settings]="(editorService.project$ | async)!.settings"
+    (settingsChange)="editorService.changeSettings($event)">
+  </app-settings>
 </ng-template>
 
 <ng-template #errorList>
+  @if ((editorService.runState$ | async)! !== 'paused') {
     <app-error-list
-        *ngIf="(editorService.runState$ | async)! !== 'paused'"
-        class="error-list" 
-        [errors]="(editorService.errors$ | async)!">
+      class="error-list"
+      [errors]="(editorService.errors$ | async)!">
     </app-error-list>
+  }
 
-    <app-call-stack 
-        *ngIf="(editorService.runState$ | async)! === 'paused'"
-        class="error-list" 
-        [callStack]="(editorService.callStack$ | async)!">
+  @if ((editorService.runState$ | async)! === 'paused') {
+    <app-call-stack
+      class="error-list"
+      [callStack]="(editorService.callStack$ | async)!">
     </app-call-stack>
+  }
 </ng-template>
 
-<div class="large-screen" *ngIf="!isSmallScreen">
+@if (!isSmallScreen) {
+  <div class="large-screen">
     <ng-container *ngTemplateOutlet="header"></ng-container>
     <ng-container *ngTemplateOutlet="fileExplorer"></ng-container>
     <ng-container *ngTemplateOutlet="codeEditor"></ng-container>
     <ng-container *ngTemplateOutlet="townEditor"></ng-container>
     <ng-container *ngTemplateOutlet="settings"></ng-container>
     <ng-container *ngTemplateOutlet="errorList"></ng-container>
-</div>
+  </div>
+}
 
-<div class="small-screen" *ngIf="isSmallScreen">
+@if (isSmallScreen) {
+  <div class="small-screen">
     <ng-container *ngTemplateOutlet="header"></ng-container>
     <mat-tab-group preserveContent class="tabs tab-group-full-height" [selectedIndex]="selectedTabIndex$ | async" (selectedIndexChange)="onSelectedTabIndexChange($event)">
-        <mat-tab label="Project">
-            <div class="project">
-                <ng-container *ngTemplateOutlet="fileExplorer"></ng-container>
-                <ng-container *ngTemplateOutlet="settings"></ng-container>
-            </div>
-        </mat-tab>
-        <mat-tab label="Code" class="code">
-            <div class="code">
-                <ng-container *ngTemplateOutlet="codeEditor"></ng-container>
-                <ng-container *ngTemplateOutlet="errorList"></ng-container>
-            </div>
-        </mat-tab>
-        <mat-tab label="Town" class="town">
-            <ng-container *ngTemplateOutlet="townEditor"></ng-container>
-        </mat-tab>
+      <mat-tab label="Project">
+        <div class="project">
+          <ng-container *ngTemplateOutlet="fileExplorer"></ng-container>
+          <ng-container *ngTemplateOutlet="settings"></ng-container>
+        </div>
+      </mat-tab>
+      <mat-tab label="Code" class="code">
+        <div class="code">
+          <ng-container *ngTemplateOutlet="codeEditor"></ng-container>
+          <ng-container *ngTemplateOutlet="errorList"></ng-container>
+        </div>
+      </mat-tab>
+      <mat-tab label="Town" class="town">
+        <ng-container *ngTemplateOutlet="townEditor"></ng-container>
+      </mat-tab>
     </mat-tab-group>
-</div>
+  </div>
+}

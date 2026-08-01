@@ -1,5 +1,5 @@
-import { Component, Input } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, Input, ChangeDetectionStrategy } from "@angular/core";
+
 import { ChallengeSubmission } from "projects/application/src/app/shared/application/models/challenge-submission";
 import { Project, Settings } from "karel";
 import { MatCardModule } from "@angular/material/card";
@@ -11,9 +11,9 @@ import { DateAgoPipe } from "projects/application/src/app/shared/presentation/pi
  */
 @Component({
     selector: "app-challenge-submission",
-    standalone: true,
-    imports: [CommonModule, MatProgressBarModule, MatCardModule, DateAgoPipe],
+    imports: [MatProgressBarModule, MatCardModule, DateAgoPipe],
     templateUrl: "./challenge-submission.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./challenge-submission.component.css"]
 })
 export class ChallengeSubmissionComponent {

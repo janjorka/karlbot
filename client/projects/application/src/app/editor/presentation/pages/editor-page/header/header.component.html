@@ -1,149 +1,195 @@
 <mat-toolbar class="menu">
-    <button mat-button [matMenuTriggerFor]="projectMenu">Project</button>
-    <mat-menu #projectMenu="matMenu">
-        <button mat-menu-item (click)="newClick.emit()">
-            <mat-icon>add</mat-icon>
-            New
-        </button>
-        <button mat-menu-item (click)="saveClick.emit()">
-            <mat-icon>save</mat-icon>
-            Save
-        </button>
+  <button mat-button [matMenuTriggerFor]="projectMenu">Project</button>
+  <mat-menu #projectMenu="matMenu">
+    <button mat-menu-item (click)="newClick.emit()">
+      <mat-icon>add</mat-icon>
+      New
+    </button>
+    <button mat-menu-item (click)="saveClick.emit()">
+      <mat-icon>save</mat-icon>
+      Save
+    </button>
 
-        <mat-divider class="menu-divider"></mat-divider>
+    <mat-divider class="menu-divider"></mat-divider>
 
-        <button mat-menu-item (click)="shareClick.emit()" [disabled]="!isProjectOwn">
-            <mat-icon>share</mat-icon>
-            Share
-        </button>
+    <button mat-menu-item (click)="shareClick.emit()" [disabled]="!isProjectOwn">
+      <mat-icon>share</mat-icon>
+      Share
+    </button>
 
-        <mat-divider class="menu-divider"></mat-divider>
+    <mat-divider class="menu-divider"></mat-divider>
 
-        <button mat-menu-item (click)="importClick.emit()" [disabled]="!isProjectOwn">
-            <mat-icon>upload</mat-icon>
-            Import
-        </button>
-        <button mat-menu-item (click)="exportClick.emit()">
-            <mat-icon>download</mat-icon>
-            Export
-        </button>
-    </mat-menu>
+    <button mat-menu-item (click)="importClick.emit()" [disabled]="!isProjectOwn">
+      <mat-icon>upload</mat-icon>
+      Import
+    </button>
+    <button mat-menu-item (click)="exportClick.emit()">
+      <mat-icon>download</mat-icon>
+      Export
+    </button>
+  </mat-menu>
 
-    <button mat-button [matMenuTriggerFor]="editMenu">Edit</button>
-    <mat-menu #editMenu="matMenu">
-        <button mat-menu-item (click)="undoClick.emit()" [disabled]="!canUndo || runState !== 'ready'">
-            <mat-icon>undo</mat-icon>
-            Undo
-        </button>
-        <button mat-menu-item (click)="redoClick.emit()" [disabled]="!canRedo || runState !== 'ready'">
-            <mat-icon>redo</mat-icon>
-            Redo
-        </button>
-    </mat-menu>
+  <button mat-button [matMenuTriggerFor]="editMenu">Edit</button>
+  <mat-menu #editMenu="matMenu">
+    <button mat-menu-item (click)="undoClick.emit()" [disabled]="!canUndo || runState !== 'ready'">
+      <mat-icon>undo</mat-icon>
+      Undo
+    </button>
+    <button mat-menu-item (click)="redoClick.emit()" [disabled]="!canRedo || runState !== 'ready'">
+      <mat-icon>redo</mat-icon>
+      Redo
+    </button>
+  </mat-menu>
 
-    <button mat-button [matMenuTriggerFor]="programMenu">Program</button>
-    <mat-menu #programMenu="matMenu">
-        <button mat-menu-item *ngIf="runState === 'ready'" (click)="runClick.emit()">
-            <mat-icon>play_arrow</mat-icon>
-            Run
-        </button>
-        <button mat-menu-item *ngIf="runState === 'ready'" (click)="runReadonlyClick.emit()">
-            <mat-icon>play_arrow</mat-icon>
-            Run Read-only
-        </button>
+  <button mat-button [matMenuTriggerFor]="programMenu">Program</button>
+  <mat-menu #programMenu="matMenu">
+    @if (runState === 'ready') {
+      <button mat-menu-item (click)="runClick.emit()">
+        <mat-icon>play_arrow</mat-icon>
+        Run
+      </button>
+    }
+    @if (runState === 'ready') {
+      <button mat-menu-item (click)="runReadonlyClick.emit()">
+        <mat-icon>play_arrow</mat-icon>
+        Run Read-only
+      </button>
+    }
 
-        <button mat-menu-item *ngIf="runState === 'running' || runState === 'paused'" (click)="stopClick.emit()">
-            <mat-icon>stop</mat-icon>
-            Stop
-        </button>
-        <button mat-menu-item *ngIf="runState === 'running'" (click)="pauseClick.emit()">
-            <mat-icon>pause</mat-icon>
-            Pause
-        </button>
+    @if (runState === 'running' || runState === 'paused') {
+      <button mat-menu-item (click)="stopClick.emit()">
+        <mat-icon>stop</mat-icon>
+        Stop
+      </button>
+    }
+    @if (runState === 'running') {
+      <button mat-menu-item (click)="pauseClick.emit()">
+        <mat-icon>pause</mat-icon>
+        Pause
+      </button>
+    }
 
-        <button mat-menu-item *ngIf="runState === 'paused'" (click)="continueClick.emit()">
-            <mat-icon>play_arrow</mat-icon>
-            Continue
-        </button>
-        <mat-divider *ngIf="runState === 'paused'" class="menu-divider"></mat-divider>
-        <button mat-menu-item *ngIf="runState === 'paused'" (click)="stepIntoClick.emit()">
-            <mat-icon>step_into</mat-icon>
-            Step Into
-        </button>
-        <button mat-menu-item *ngIf="runState === 'paused'" (click)="stepOverClick.emit()">
-            <mat-icon>step_over</mat-icon>
-            Step Over
-        </button>
-        <button mat-menu-item *ngIf="runState === 'paused'" (click)="stepOutClick.emit()">
-            <mat-icon>step_out</mat-icon>
-            Step Out
-        </button>
-    </mat-menu>
+    @if (runState === 'paused') {
+      <button mat-menu-item (click)="continueClick.emit()">
+        <mat-icon>play_arrow</mat-icon>
+        Continue
+      </button>
+    }
+    @if (runState === 'paused') {
+      <mat-divider class="menu-divider"></mat-divider>
+    }
+    @if (runState === 'paused') {
+      <button mat-menu-item (click)="stepIntoClick.emit()">
+        <mat-icon>step_into</mat-icon>
+        Step Into
+      </button>
+    }
+    @if (runState === 'paused') {
+      <button mat-menu-item (click)="stepOverClick.emit()">
+        <mat-icon>step_over</mat-icon>
+        Step Over
+      </button>
+    }
+    @if (runState === 'paused') {
+      <button mat-menu-item (click)="stepOutClick.emit()">
+        <mat-icon>step_out</mat-icon>
+        Step Out
+      </button>
+    }
+  </mat-menu>
 
-    <div class="project-name">
-        <span class="project-name-text mat-subtitle-1" (click)="onChangeProjectNameClick()">{{projectName}}</span>
-    </div>
+  <div class="project-name">
+    <span class="project-name-text mat-subtitle-1" (click)="onChangeProjectNameClick()">{{projectName}}</span>
+  </div>
 </mat-toolbar>
 
 <mat-toolbar class="toolbar">
-    <button mat-icon-button *ngIf="runState === 'ready'" (click)="saveClick.emit()">
-        <mat-icon>save</mat-icon>
+  @if (runState === 'ready') {
+    <button mat-icon-button (click)="saveClick.emit()">
+      <mat-icon>save</mat-icon>
     </button>
+  }
 
-    <button mat-icon-button *ngIf="runState === 'ready'" (click)="undoClick.emit()" [disabled]="!canUndo">
-        <mat-icon>undo</mat-icon>
+  @if (runState === 'ready') {
+    <button mat-icon-button (click)="undoClick.emit()" [disabled]="!canUndo">
+      <mat-icon>undo</mat-icon>
     </button>
-    <button mat-icon-button *ngIf="runState === 'ready'" (click)="redoClick.emit()" [disabled]="!canRedo">
-        <mat-icon>redo</mat-icon>
+  }
+  @if (runState === 'ready') {
+    <button mat-icon-button (click)="redoClick.emit()" [disabled]="!canRedo">
+      <mat-icon>redo</mat-icon>
     </button>
+  }
 
-    <mat-form-field *ngIf="runState === 'ready'" appearance="fill" subscriptSizing="dynamic" class="form-field-without-underline form-field-transparent-background">
-        <mat-label>Entry Point</mat-label>
-        <mat-select [value]="entryPoint" (selectionChange)="entryPointChange.emit($event.value)">
-            <mat-option *ngFor="let availableEntryPoint of availableEntryPoints" [value]="availableEntryPoint">
-                {{availableEntryPoint}}
-            </mat-option>
-        </mat-select>
+  @if (runState === 'ready') {
+    <mat-form-field appearance="fill" subscriptSizing="dynamic" class="form-field-without-underline form-field-transparent-background">
+      <mat-label>Entry Point</mat-label>
+      <mat-select [value]="entryPoint" (selectionChange)="entryPointChange.emit($event.value)">
+        @for (availableEntryPoint of availableEntryPoints; track availableEntryPoint) {
+          <mat-option [value]="availableEntryPoint">
+            {{availableEntryPoint}}
+          </mat-option>
+        }
+      </mat-select>
     </mat-form-field>
+  }
 
-    <button mat-button *ngIf="runState === 'ready'" (click)="runClick.emit()">
-        <mat-icon>play_arrow</mat-icon>
-        Run
+  @if (runState === 'ready') {
+    <button mat-button (click)="runClick.emit()">
+      <mat-icon>play_arrow</mat-icon>
+      Run
     </button>
-    <button mat-button *ngIf="runState === 'ready'" (click)="runReadonlyClick.emit()">
-        <mat-icon>play_arrow</mat-icon>
-        Run Read-only
+  }
+  @if (runState === 'ready') {
+    <button mat-button (click)="runReadonlyClick.emit()">
+      <mat-icon>play_arrow</mat-icon>
+      Run Read-only
     </button>
+  }
 
-    <button mat-button *ngIf="runState === 'running' || runState === 'paused'" (click)="stopClick.emit()">
-        <mat-icon>stop</mat-icon>
-        Stop
+  @if (runState === 'running' || runState === 'paused') {
+    <button mat-button (click)="stopClick.emit()">
+      <mat-icon>stop</mat-icon>
+      Stop
     </button>
-    <button mat-button *ngIf="runState === 'running'" (click)="pauseClick.emit()">
-        <mat-icon>pause</mat-icon>
-        Pause
+  }
+  @if (runState === 'running') {
+    <button mat-button (click)="pauseClick.emit()">
+      <mat-icon>pause</mat-icon>
+      Pause
     </button>
+  }
 
-    <button mat-button *ngIf="runState === 'paused'" (click)="continueClick.emit()">
-        <mat-icon>play_arrow</mat-icon>
-        Continue
+  @if (runState === 'paused') {
+    <button mat-button (click)="continueClick.emit()">
+      <mat-icon>play_arrow</mat-icon>
+      Continue
     </button>
-    <button mat-button *ngIf="runState === 'paused'" (click)="stepIntoClick.emit()">
-        <mat-icon>step_into</mat-icon>
-        Step Into
+  }
+  @if (runState === 'paused') {
+    <button mat-button (click)="stepIntoClick.emit()">
+      <mat-icon>step_into</mat-icon>
+      Step Into
     </button>
-    <button mat-button *ngIf="runState === 'paused'" (click)="stepOverClick.emit()">
-        <mat-icon>step_over</mat-icon>
-        Step Over
+  }
+  @if (runState === 'paused') {
+    <button mat-button (click)="stepOverClick.emit()">
+      <mat-icon>step_over</mat-icon>
+      Step Over
     </button>
-    <button mat-button *ngIf="runState === 'paused'" (click)="stepOutClick.emit()">
-        <mat-icon>step_out</mat-icon>
-        Step Out
+  }
+  @if (runState === 'paused') {
+    <button mat-button (click)="stepOutClick.emit()">
+      <mat-icon>step_out</mat-icon>
+      Step Out
     </button>
+  }
 
-    <div class="toolbar-spacer"></div>
+  <div class="toolbar-spacer"></div>
 
-    <button mat-icon-button *ngIf="runState === 'ready'" (click)="shareClick.emit()" [disabled]="!isProjectOwn">
-        <mat-icon>share</mat-icon>
+  @if (runState === 'ready') {
+    <button mat-icon-button (click)="shareClick.emit()" [disabled]="!isProjectOwn">
+      <mat-icon>share</mat-icon>
     </button>
+  }
 </mat-toolbar>

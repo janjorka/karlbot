@@ -1,1 +1,1 @@
-<mat-spinner *ngIf="loadingService.isLoading$ | async" class="spinner" diameter="50"></mat-spinner>
+@if (loadingService.isLoading$ | async) {<mat-spinner class="spinner" diameter="50"></mat-spinner>}

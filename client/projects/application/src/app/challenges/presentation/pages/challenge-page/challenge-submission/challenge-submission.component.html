@@ -1,12 +1,14 @@
 <mat-card>
-    <mat-card-header>
-        <mat-card-title>{{evaluationStateText}}</mat-card-title>
-        <mat-card-subtitle>{{challengeSubmission.created | appDateAgo}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-        <p>{{challengeSubmission.evaluationResult?.message}}</p>
-    </mat-card-content>
-    <mat-card-footer *ngIf="challengeSubmission.evaluationResult === null">
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <mat-card-header>
+    <mat-card-title>{{evaluationStateText}}</mat-card-title>
+    <mat-card-subtitle>{{challengeSubmission.created | appDateAgo}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>{{challengeSubmission.evaluationResult?.message}}</p>
+  </mat-card-content>
+  @if (challengeSubmission.evaluationResult === null) {
+    <mat-card-footer>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </mat-card-footer>
+  }
 </mat-card>

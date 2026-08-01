@@ -1,35 +1,36 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-        "baseUrl": "./",
         "outDir": "./dist/out-tsc",
         "forceConsistentCasingInFileNames": true,
+        "esModuleInterop": true,
         "strict": true,
         "noImplicitOverride": true,
         "noPropertyAccessFromIndexSignature": true,
         "paths": {
+            "projects/*": [
+                "./projects/*"
+            ],
             "karel": [
-                "dist/karel"
+                "./dist/karel"
             ],
             "karel-evaluation": [
-                "dist/karel-evaluation"
+                "./dist/karel-evaluation"
+            ],
+            "@lezer/highlight": [
+                "./node_modules/@lezer/highlight/dist/highlight.d.ts"
             ]
         },
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
         "sourceMap": true,
         "declaration": false,
-        "downlevelIteration": true,
         "experimentalDecorators": true,
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "importHelpers": true,
         "target": "ES2022",
         "module": "ES2022",
         "useDefineForClassFields": false,
-        "lib": [
-            "ES2022",
-            "dom"
-        ],
         "skipLibCheck": true
     },
     "angularCompilerOptions": {

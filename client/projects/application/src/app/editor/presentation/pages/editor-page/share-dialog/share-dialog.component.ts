@@ -1,5 +1,5 @@
-import { Component, Inject } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, Inject, ChangeDetectionStrategy } from "@angular/core";
+
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -13,9 +13,9 @@ import { NotificationService } from "projects/application/src/app/shared/present
  */
 @Component({
     selector: "app-share-dialog",
-    standalone: true,
-    imports: [CommonModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule],
+    imports: [MatDialogModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatSelectModule, MatIconModule],
     templateUrl: "./share-dialog.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./share-dialog.component.css"]
 })
 export class ShareDialogComponent {

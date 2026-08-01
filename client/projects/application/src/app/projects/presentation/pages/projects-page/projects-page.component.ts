@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+
 import { MatButtonModule } from "@angular/material/button";
 import { SavedProject } from "projects/application/src/app/shared/application/models/saved-project";
 import { SavedProjectViewComponent } from "./saved-project-view/saved-project-view.component";
@@ -16,9 +16,9 @@ import { ProjectService } from "projects/application/src/app/shared/application/
  */
 @Component({
     selector: "app-projects-page",
-    standalone: true,
-    imports: [CommonModule, MatButtonModule, SavedProjectViewComponent, MatIconModule, RouterModule, PageComponent],
+    imports: [MatButtonModule, SavedProjectViewComponent, MatIconModule, RouterModule, PageComponent],
     templateUrl: "./projects-page.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./projects-page.component.css"]
 })
 export class ProjectsPageComponent implements OnInit {

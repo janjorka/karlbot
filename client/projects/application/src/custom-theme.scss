@@ -5,7 +5,8 @@
 @use "@angular/material" as mat;
 @use 'sass:map';
 
-@include mat.core();
+@include mat.elevation-classes();
+@include mat.app-background();
 
 $application-primary-palette: (
     50: #f6fde6,
@@ -31,12 +32,12 @@ $application-primary-palette: (
     )
 );
 
-$application-typography: mat.define-typography-config();
-$application-primary: mat.define-palette($application-primary-palette);
-$application-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-$application-warn: mat.define-palette(mat.$red-palette);
+$application-typography: mat.m2-define-typography-config();
+$application-primary: mat.m2-define-palette($application-primary-palette);
+$application-accent: mat.m2-define-palette(mat.$m2-pink-palette, A200, A100, A400);
+$application-warn: mat.m2-define-palette(mat.$m2-red-palette);
 
-$application-light-theme: mat.define-light-theme((
+$application-light-theme: mat.m2-define-light-theme((
     color: (
         primary: $application-primary,
         accent: $application-accent,
@@ -46,7 +47,7 @@ $application-light-theme: mat.define-light-theme((
     typography: $application-typography
 ));
 
-$application-dark-theme: mat.define-dark-theme((
+$application-dark-theme: mat.m2-define-dark-theme((
     color: (
         primary: $application-primary,
         accent: $application-accent,
@@ -60,20 +61,20 @@ $application-dark-theme: mat.define-dark-theme((
 @include mat.all-component-themes($application-light-theme);
 
 .light-theme {
-    $color-config: mat.get-color-config($application-light-theme);
+    $color-config: mat.m2-get-color-config($application-light-theme);
     $primary-palette: map.get($color-config, "primary");
     $accent-palette:  map.get($color-config, "accent");
     $warn-palette:    map.get($color-config, "warn");
     $background-palette:   map.get($color-config, "background");
 
-    --color-primary: #{mat.get-color-from-palette($primary-palette, 500)};
-    --color-accent: #{mat.get-color-from-palette($accent-palette, 500)};
-    --color-warn: #{mat.get-color-from-palette($warn-palette, 500)};
+    --color-primary: #{mat.m2-get-color-from-palette($primary-palette, 500)};
+    --color-accent: #{mat.m2-get-color-from-palette($accent-palette, 500)};
+    --color-warn: #{mat.m2-get-color-from-palette($warn-palette, 500)};
     --color-positive: #8BC34A;
     --color-neutral: #FFB300;
     --color-negative: #D32F2F;
-    --background-primary: #{mat.get-color-from-palette($background-palette, "background")};
-    --background-secondary: #{mat.get-color-from-palette($background-palette, "app-bar")};
+    --background-primary: #{mat.m2-get-color-from-palette($background-palette, "background")};
+    --background-secondary: #{mat.m2-get-color-from-palette($background-palette, "app-bar")};
     --background-tertiary: #eaeaea;
     --background-quaternary: #ededed;
     --background-designer: url("/assets/designer-background-light.png");
@@ -86,20 +87,20 @@ $application-dark-theme: mat.define-dark-theme((
 .dark-theme {
     @include mat.all-component-colors($application-dark-theme);
 
-    $color-config: mat.get-color-config($application-dark-theme);
+    $color-config: mat.m2-get-color-config($application-dark-theme);
     $primary-palette: map.get($color-config, "primary");
     $accent-palette:  map.get($color-config, "accent");
     $warn-palette:    map.get($color-config, "warn");
     $background-palette:   map.get($color-config, "background");
 
-    --color-primary: #{mat.get-color-from-palette($primary-palette, 500)};
-    --color-accent: #{mat.get-color-from-palette($accent-palette, 500)};
-    --color-warn: #{mat.get-color-from-palette($warn-palette, 500)};
+    --color-primary: #{mat.m2-get-color-from-palette($primary-palette, 500)};
+    --color-accent: #{mat.m2-get-color-from-palette($accent-palette, 500)};
+    --color-warn: #{mat.m2-get-color-from-palette($warn-palette, 500)};
     --color-positive: #AED581;
     --color-neutral: #FFD54F;
     --color-negative: #EF5350;
-    --background-primary: #{mat.get-color-from-palette($background-palette, "background")};
-    --background-secondary: #{mat.get-color-from-palette($background-palette, "app-bar")};
+    --background-primary: #{mat.m2-get-color-from-palette($background-palette, "background")};
+    --background-secondary: #{mat.m2-get-color-from-palette($background-palette, "app-bar")};
     --background-tertiary: #333333;
     --background-quaternary: #424242;
     --background-designer: url("/assets/designer-background-dark.png");

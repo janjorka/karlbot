@@ -1,5 +1,5 @@
-import { Component, Input } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, Input, ChangeDetectionStrategy } from "@angular/core";
+
 import { ChallengeDifficulty } from "projects/application/src/app/shared/application/models/challenge-difficulty";
 
 /**
@@ -7,9 +7,9 @@ import { ChallengeDifficulty } from "projects/application/src/app/shared/applica
  */
 @Component({
     selector: "app-challenge-difficulty",
-    standalone: true,
-    imports: [CommonModule],
+    imports: [],
     templateUrl: "./challenge-difficulty.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./challenge-difficulty.component.css"]
 })
 export class ChallengeDifficultyComponent {

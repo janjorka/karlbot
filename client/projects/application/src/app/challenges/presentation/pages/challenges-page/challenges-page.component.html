@@ -1,55 +1,52 @@
-<app-page *ngIf="challenges !== null">
+@if (challenges !== null) {
+  <app-page>
     <span page-title>Challenges</span>
-
-    <button *ngIf="(signInService.currentUser$ | async)?.isAdmin ?? false" mat-flat-button color="primary" routerLink="/challenges/editor">
+    @if ((signInService.currentUser$ | async)?.isAdmin ?? false) {
+      <button mat-flat-button color="primary" routerLink="/challenges/editor">
         <mat-icon>add</mat-icon>
         Create New
-    </button>
-
+      </button>
+    }
     <div class="table-scroll-wrapper">
-        <table class="table" mat-table [dataSource]="challenges">
-            <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef class="table-status-column"></th>
-                <td mat-cell *matCellDef="let challenge" class="table-status-column">
-                    <app-challenge-status class="status" [submissionsInfo]="challenge.submissionsInfo"></app-challenge-status>
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef class="table-name-column">Name</th>
-                <td mat-cell *matCellDef="let challenge" class="table-name-column">
-                    <button mat-button color="primary" routerLink="/challenges/{{challenge.id}}">{{challenge.name}}</button>
-                </td>
-            </ng-container>
-    
-            <ng-container matColumnDef="difficulty">
-                <th mat-header-cell *matHeaderCellDef>Difficulty</th>
-                <td mat-cell *matCellDef="let challenge">
-                    <app-challenge-difficulty [difficulty]="challenge.difficulty"></app-challenge-difficulty>
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="solved">
-                <th mat-header-cell *matHeaderCellDef>Solved</th>
-                <td mat-cell *matCellDef="let challenge">
-                    {{challenge.submissionsInfo.usersSuccessfullySubmittedCount}}
-                </td>
-            </ng-container>
-    
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef class="table-actions-column"></th>
-                <td mat-cell *matCellDef="let challenge" class="table-actions-column">
-                    <button mat-icon-button routerLink="/challenges/editor/{{challenge.id}}">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                    <button mat-icon-button (click)="onRemoveClick(challenge)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </td>
-            </ng-container>
-    
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+      <table class="table" mat-table [dataSource]="challenges">
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef class="table-status-column"></th>
+          <td mat-cell *matCellDef="let challenge" class="table-status-column">
+            <app-challenge-status class="status" [submissionsInfo]="challenge.submissionsInfo"></app-challenge-status>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef class="table-name-column">Name</th>
+          <td mat-cell *matCellDef="let challenge" class="table-name-column">
+            <button mat-button color="primary" routerLink="/challenges/{{challenge.id}}">{{challenge.name}}</button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="difficulty">
+          <th mat-header-cell *matHeaderCellDef>Difficulty</th>
+          <td mat-cell *matCellDef="let challenge">
+            <app-challenge-difficulty [difficulty]="challenge.difficulty"></app-challenge-difficulty>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="solved">
+          <th mat-header-cell *matHeaderCellDef>Solved</th>
+          <td mat-cell *matCellDef="let challenge">
+            {{challenge.submissionsInfo.usersSuccessfullySubmittedCount}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="table-actions-column"></th>
+          <td mat-cell *matCellDef="let challenge" class="table-actions-column">
+            <button mat-icon-button routerLink="/challenges/editor/{{challenge.id}}">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="onRemoveClick(challenge)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
     </div>
-</app-page>
+  </app-page>
+}

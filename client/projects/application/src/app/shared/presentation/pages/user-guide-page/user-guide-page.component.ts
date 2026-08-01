@@ -1,5 +1,5 @@
-import { Component, OnInit } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+
 import { PageComponent } from "../../components/page/page.component";
 import { HttpClient, HttpContext } from "@angular/common/http";
 import { firstValueFrom } from "rxjs";
@@ -11,9 +11,9 @@ import { MarkdownViewComponent } from "../../components/markdown-view/markdown-v
  */
 @Component({
     selector: "app-not-user-guide",
-    standalone: true,
-    imports: [CommonModule, PageComponent, MarkdownViewComponent],
+    imports: [PageComponent, MarkdownViewComponent],
     templateUrl: "./user-guide-page.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./user-guide-page.component.css"]
 })
 export class UserGuidePageComponent implements OnInit {

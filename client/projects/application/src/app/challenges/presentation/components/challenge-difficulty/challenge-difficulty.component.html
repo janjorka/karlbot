@@ -1,3 +1,9 @@
-<span *ngIf="difficulty === 'easy'" class="text text-easy">Easy</span>
-<span *ngIf="difficulty === 'medium'" class="text text-medium">Medium</span>
-<span *ngIf="difficulty === 'hard'" class="text text-hard">Hard</span>
+@if (difficulty === 'easy') {
+  <span class="text text-easy">Easy</span>
+}
+@if (difficulty === 'medium') {
+  <span class="text text-medium">Medium</span>
+}
+@if (difficulty === 'hard') {
+  <span class="text text-hard">Hard</span>
+}

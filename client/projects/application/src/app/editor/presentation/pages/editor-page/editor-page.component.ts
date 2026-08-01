@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, ViewChild } from "@angular/core";
+import { Component, ViewChild, ChangeDetectionStrategy } from "@angular/core";
 import { EditorArea, EditorService } from "../../../application/services/editor.service";
 import { ErrorListComponent } from "./error-list/error-list.component";
 import { FileExplorerComponent } from "./file-explorer/file-explorer.component";
@@ -19,12 +19,12 @@ import { RunService } from "../../../application/services/run.service";
  * Main page of the application. Allows to edit a project and to run a program.
  */
 @Component({
-    standalone: true,
     selector: "app-editor-page",
     imports: [CommonModule, FileExplorerComponent, CodeEditorComponent, TownEditorComponent, ErrorListComponent, SettingsComponent, HeaderComponent, MatTabsModule, CallStackComponent],
     templateUrl: "./editor-page.component.html",
     styleUrls: ["./editor-page.component.css"],
-    providers: [EditorService, ProjectEditorService, RunService, { provide: MAT_TABS_CONFIG, useValue: { animationDuration: 100 }}]
+    changeDetection: ChangeDetectionStrategy.Eager,
+    providers: [EditorService, ProjectEditorService, RunService, { provide: MAT_TABS_CONFIG, useValue: { animationDuration: 100 } }]
 })
 export class EditorPageComponent {
     /**

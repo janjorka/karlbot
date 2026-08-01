@@ -1,5 +1,5 @@
-import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from "@angular/core";
+
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ChangeDetectionStrategy } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
@@ -15,10 +15,10 @@ import { PanelComponent } from "../../../components/panel/panel.component";
  * Allows to manage files in the open project.
  */
 @Component({
-    standalone: true,
     selector: "app-file-explorer",
-    imports: [CommonModule, MatMenuModule, MatIconModule, MatListModule, PanelComponent, MatButtonModule, StopClickPropagationDirective],
+    imports: [MatMenuModule, MatIconModule, MatListModule, PanelComponent, MatButtonModule, StopClickPropagationDirective],
     templateUrl: "./file-explorer.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./file-explorer.component.css"]
 })
 export class FileExplorerComponent implements OnChanges {

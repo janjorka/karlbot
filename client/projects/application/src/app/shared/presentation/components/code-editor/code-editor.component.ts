@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ChangeDetectionStrategy } from "@angular/core";
 import { EditorView, keymap, ViewUpdate } from "@codemirror/view";
 import { defaultKeymap, undo, redo } from "@codemirror/commands";
 import { basicSetup } from "codemirror";
@@ -6,7 +6,7 @@ import { karel } from "./codemirror/karel-language";
 import { applicationStyleLight } from "./codemirror/application-theme-light";
 import { Error } from "karel";
 import { CompletionItem } from "karel";
-import { CommonModule } from "@angular/common";
+
 import { LineTextRange } from "karel";
 import { Compartment, TransactionSpec, EditorState } from "@codemirror/state"
 import { codeCompletion } from "./codemirror/code-completion";
@@ -23,10 +23,10 @@ import { indentUnit } from "@codemirror/language";
  * Code editor of the Karel language.
  */
 @Component({
-    standalone: true,
     selector: "app-code-editor",
-    imports: [CommonModule],
+    imports: [],
     templateUrl: "./code-editor.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./code-editor.component.css"]
 })
 export class CodeEditorComponent implements AfterViewInit, OnChanges {

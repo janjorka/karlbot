@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Challenge } from "projects/application/src/app/shared/application/models/challenge";
 import { RouterModule } from "@angular/router";
@@ -19,9 +19,9 @@ import { ChallengeService } from "projects/application/src/app/shared/applicatio
  */
 @Component({
     selector: "app-challenges-page",
-    standalone: true,
     imports: [CommonModule, RouterModule, MatButtonModule, MatIconModule, MatTableModule, PageComponent, ChallengeDifficultyComponent, ChallengeStatusComponent],
     templateUrl: "./challenges-page.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./challenges-page.component.css"]
 })
 export class ChallengesPageComponent implements OnInit {

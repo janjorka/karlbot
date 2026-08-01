@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
+
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Challenge } from "projects/application/src/app/shared/application/models/challenge";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -24,9 +24,9 @@ import { ChallengeService } from "projects/application/src/app/shared/applicatio
  */
 @Component({
     selector: "app-challenge-editor-page",
-    standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, MatButtonModule, MatInputModule, PageComponent, MatIconModule, ChallengeTestCaseEditorComponent, MatExpansionModule, MatCheckboxModule, StopClickPropagationDirective, MatSelectModule],
+    imports: [ReactiveFormsModule, MatButtonModule, MatInputModule, PageComponent, MatIconModule, ChallengeTestCaseEditorComponent, MatExpansionModule, MatCheckboxModule, StopClickPropagationDirective, MatSelectModule],
     templateUrl: "./challenge-editor-page.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./challenge-editor-page.component.css"]
 })
 export class ChallengeEditorPageComponent {

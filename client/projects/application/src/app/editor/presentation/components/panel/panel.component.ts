@@ -1,15 +1,15 @@
-import { CommonModule } from "@angular/common";
-import { Component, Input } from "@angular/core";
+
+import { Component, Input, ChangeDetectionStrategy } from "@angular/core";
 import { MatDividerModule } from "@angular/material/divider";
 
 /**
  * Panel of the editor.
  */
 @Component({
-    standalone: true,
     selector: "app-panel",
-    imports: [CommonModule, MatDividerModule],
+    imports: [MatDividerModule],
     templateUrl: "./panel.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./panel.component.css"]
 })
 export class PanelComponent {

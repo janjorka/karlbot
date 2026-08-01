@@ -1,16 +1,16 @@
-import { CommonModule } from "@angular/common";
-import { Component, ElementRef, Input, ViewEncapsulation } from "@angular/core";
+
+import { Component, ElementRef, Input, ViewEncapsulation, ChangeDetectionStrategy } from "@angular/core";
 import { MarkdownService } from "../../../application/services/markdown-service";
 
 /**
  * Renders a Markdown code with appropriate styles.
  */
 @Component({
-    standalone: true,
     selector: "app-markdown-view",
-    imports: [CommonModule],
+    imports: [],
     templateUrl: "./markdown-view.component.html",
     styleUrls: ["./markdown-view.component.css"],
+    changeDetection: ChangeDetectionStrategy.Eager,
     encapsulation: ViewEncapsulation.None
 })
 export class MarkdownViewComponent {

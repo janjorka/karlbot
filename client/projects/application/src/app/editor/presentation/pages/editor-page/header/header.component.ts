@@ -1,5 +1,5 @@
-import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, Input, Output } from "@angular/core";
+
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatSelectModule } from "@angular/material/select";
@@ -14,10 +14,10 @@ import { RunState } from "../../../../application/services/run.service";
  * Contains dropdown menus with all editor actions and a toolbar with those that are frequently used. It also shows the project name.
  */
 @Component({
-    standalone: true,
     selector: "app-header",
-    imports: [CommonModule, MatIconModule, MatSelectModule, MatToolbarModule, MatMenuModule, MatButtonModule, MatDividerModule],
+    imports: [MatIconModule, MatSelectModule, MatToolbarModule, MatMenuModule, MatButtonModule, MatDividerModule],
     templateUrl: "./header.component.html",
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ["./header.component.css"]
 })
 export class HeaderComponent {

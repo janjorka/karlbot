@@ -36,9 +36,9 @@ body {
 
 /* Fixes Angular Material opacity bug in dark theme. */
 .dark-theme .mdc-list-item--disabled.mdc-list-item--with-leading-icon .mdc-list-item__start {
-    opacity: var(--mdc-list-list-item-disabled-leading-icon-opacity);
+    opacity: var(--mat-list-list-item-disabled-leading-icon-opacity);
 }
 
 .dark-theme .mat-mdc-list-base .mdc-list-item--disabled .mdc-list-item__end {
-    opacity: var(--mdc-list-list-item-disabled-trailing-icon-opacity);
+    opacity: var(--mat-list-list-item-disabled-trailing-icon-opacity);
 }
