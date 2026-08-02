@@ -96,6 +96,12 @@
     margin-right: 48px;
 }
 
+.github-icon {
+    width: 22px;
+    height: 22px;
+    padding: 1px;
+}
+
 .page {
     flex-grow: 1;
 }
@@ -110,6 +116,10 @@
     }
 
     .app-bar-dark-mode-switch {
+        display: none;
+    }
+
+    .app-bar-github-button {
         display: none;
     }
 
