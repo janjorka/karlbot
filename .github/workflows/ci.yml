@@ -80,7 +80,7 @@ jobs:
     - name: Restore client dependencies
       run: |
         cd client
-        npm install
+        npm ci
     - name: Build client
       run: |
         cd client
@@ -89,11 +89,11 @@ jobs:
         npm run build -- application --configuration production
         cd projects
         cd karel
-        npm install
+        npm ci
         npm run build
         cd ..
         cd karel-evaluation
-        npm install
+        npm ci
         npm run build
         cd ../..
         
