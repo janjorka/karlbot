@@ -8,11 +8,7 @@ import MarkdownIt from "markdown-it";
     providedIn: "root"
 })
 export class MarkdownService {
-    private readonly markdownIt: MarkdownIt;
-
-    constructor() {
-        this.markdownIt = new MarkdownIt();
-    }
+    private readonly markdownIt = new MarkdownIt();
 
     /**
      * Renders Markdown into HTML.
