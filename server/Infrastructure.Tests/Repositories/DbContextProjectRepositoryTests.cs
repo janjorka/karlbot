@@ -30,7 +30,7 @@ namespace Infrastructure.Tests.Repositories
             Assert.That(actual.ProjectFile, Is.EqualTo(expected.ProjectFile));
         }
 
-        protected override Project CreateEntity() => new Project(User1.Id, DateTime1, "project1");
+        protected override Project CreateEntity() => new Project(User1.Id, false, DateTime1, "project1");
 
         protected override void UpdateEntity(Project entity) => entity.ProjectFile = "Some updated project file";
 

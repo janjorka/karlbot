@@ -41,11 +41,13 @@
         public string ProjectFile { get; set; }
 
         /// <param name="authorId">Id of the author.</param>
+        /// <param name="isPublic">Wheter it is publicly accessible or only for its author.</param>
         /// <param name="created">Date and time when the project was created.</param>
         /// <param name="projectFile">Project file.</param>
-        public Project(Guid authorId, DateTime created, string projectFile)
+        public Project(Guid authorId, bool isPublic, DateTime created, string projectFile)
         {
             AuthorId = authorId;
+            IsPublic = isPublic;
             Created = created;
             Modified = created;
             ProjectFile = projectFile;

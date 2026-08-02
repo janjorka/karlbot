@@ -3,7 +3,9 @@ using ApplicationCore.Repositories;
 using ApplicationCore.Services;
 using KarlBot.Authorization;
 using KarlBot.DataModels.Challenges;
+using KarlBot.RateLimiting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace KarlBot.Controllers
 {
@@ -83,6 +85,7 @@ namespace KarlBot.Controllers
         /// <param name="challengeId">Challenge id.</param>
         /// <param name="dataModel">Submission.</param>
         /// <response code="404">Challenge with the given ID does not exist.</response>
+        [EnableRateLimiting(RateLimiterPolicyNames.ChallengeEvaluation)]
         [HttpPost]
         public async Task<ActionResult> AddAsync(Guid challengeId, [FromBody] ChallengeSubmissionDataModel dataModel)
         {

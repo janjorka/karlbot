@@ -57,8 +57,8 @@ namespace Infrastructure.Tests
             ChallengeSubmission4 = new ChallengeSubmission(Guid2, Guid2, DateTime1, "project3", 0.3, "another error") { Id = Guid4 };
             ChallengeTestCase1 = new ChallengeTestCase("input1", "output1", false, true, false, true) { Id = Guid1, ChallengeId = Guid1 };
             ChallengeTestCase2 = new ChallengeTestCase("input2", "output2", true, true, false, false) { Id = Guid2, ChallengeId = Guid1 };
-            Project1 = new Project(Guid1, DateTime1, "project1") { Id = Guid1 };
-            Project2 = new Project(Guid2, DateTime2, "project2") { Id = Guid2 };
+            Project1 = new Project(Guid1, false, DateTime1, "project1") { Id = Guid1 };
+            Project2 = new Project(Guid2, true, DateTime2, "project2") { Id = Guid2 };
             User1 = new User("aaa@bbb.ccc") { Id = Guid1 };
             User2 = new User("ddd@eee.fff") { Id = Guid2 };
             Role1 = new IdentityRole<Guid>("Role1") { Id = Guid1 };

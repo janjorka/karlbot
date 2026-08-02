@@ -58,7 +58,7 @@ namespace Infrastructure.Services
 
         private SigningCredentials CreateSigningCredentials()
         {
-            var keyBytes = Encoding.ASCII.GetBytes(_options.Key);
+            var keyBytes = Encoding.UTF8.GetBytes(_options.Key);
             var key = new SymmetricSecurityKey(keyBytes);
             return new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
         }

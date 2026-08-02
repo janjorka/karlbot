@@ -65,7 +65,10 @@ namespace KarlBot.Controllers
         [HttpPost]
         public async Task<ActionResult> AddAsync(ProjectDataModel dataModel)
         {
-            var project = new Project(dataModel.AuthorId, DateTime.UtcNow, dataModel.ProjectFile);
+            if (dataModel.AuthorId != User.GetId())
+                return Forbid();
+
+            var project = new Project(dataModel.AuthorId, dataModel.IsPublic, DateTime.UtcNow, dataModel.ProjectFile);
             await _projectRepository.AddAsync(project);
 
             return CreatedAtAction(nameof(GetByIdAsync), new { id = project.Id }, ToDataModel(project));

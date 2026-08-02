@@ -176,7 +176,7 @@ export class EditorService {
                 id: null,
                 created: new Date(),
                 modified: new Date(),
-                isPublic: true,
+                isPublic: false,
                 authorId: currentUser.id,
                 project: this.projectEditorService.getProject()
             };

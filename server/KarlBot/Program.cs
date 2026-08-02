@@ -8,9 +8,12 @@ using Infrastructure.DataSeeds;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Infrastructure.Services.Options;
+using KarlBot.Authorization;
 using KarlBot.OptionsConfigurations;
+using KarlBot.RateLimiting;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -20,6 +23,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading.RateLimiting;
 
 // Server entry point. This is the place where the whole application is connected together.
 // Here is configured dependency injection and request pipeline.
@@ -27,6 +31,11 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors();
+
+builder.Services.AddHsts(o =>
+{
+    o.MaxAge = TimeSpan.FromDays(365);
+});
 
 builder.Services.AddControllers(o =>
 {
@@ -49,6 +58,63 @@ builder.Services.AddTransient<IChallengeRepository, DbContextChallengeRepository
 builder.Services.AddTransient<IChallengeSubmissionRepository, DbContextChallengeSubmissionRepository>();
 builder.Services.AddTransient<IProjectRepository, DbContextProjectRepository>();
 builder.Services.AddTransient<IUserRepository, DbContextUserRepository>();
+
+builder.Services.AddRateLimiter(o =>
+{
+    o.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    o.AddPolicy(RateLimiterPolicyNames.Authentication, httpContext => RateLimitPartition.GetSlidingWindowLimiter(
+        partitionKey: GetClientKey(httpContext),
+        factory: _ => new SlidingWindowRateLimiterOptions
+        {
+            PermitLimit = 10,
+            Window = TimeSpan.FromMinutes(1),
+            SegmentsPerWindow = 6
+        }));
+
+    o.AddPolicy(RateLimiterPolicyNames.ChallengeEvaluation, httpContext => RateLimitPartition.GetConcurrencyLimiter(
+        partitionKey: GetClientKey(httpContext),
+        factory: _ => new ConcurrencyLimiterOptions
+        {
+            PermitLimit = 2,
+            QueueLimit = 2,
+            QueueProcessingOrder = QueueProcessingOrder.OldestFirst
+        }));
+
+    o.GlobalLimiter = PartitionedRateLimiter.CreateChained(
+        PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+            RateLimitPartition.GetFixedWindowLimiter(
+                partitionKey: GetClientKey(httpContext),
+                factory: _ => new FixedWindowRateLimiterOptions
+                {
+                    PermitLimit = 100,
+                    Window = TimeSpan.FromMinutes(1)
+                })),
+        PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+            IsChallengeEvaluationEndpoint(httpContext)
+                ? RateLimitPartition.GetConcurrencyLimiter(
+                    partitionKey: RateLimiterPolicyNames.ChallengeEvaluation,
+                    factory: _ => new ConcurrencyLimiterOptions
+                    {
+                        PermitLimit = 8,
+                        QueueLimit = 16,
+                        QueueProcessingOrder = QueueProcessingOrder.OldestFirst
+                    })
+                : RateLimitPartition.GetNoLimiter<string>("Unlimited")));
+
+    static string GetClientKey(HttpContext httpContext)
+    {
+        return httpContext.User.GetIdOrNull()?.ToString()
+            ?? httpContext.Connection.RemoteIpAddress?.ToString()
+            ?? "Unknown";
+    }
+
+    static bool IsChallengeEvaluationEndpoint(HttpContext httpContext)
+    {
+        var enableRateLimitingAttribute = httpContext.GetEndpoint()?.Metadata.GetMetadata<EnableRateLimitingAttribute>();
+        return enableRateLimitingAttribute?.PolicyName == RateLimiterPolicyNames.ChallengeEvaluation;
+    }
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(o =>
@@ -111,6 +177,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 }
+else
+{
+    app.UseHsts();
+}
 
 app.UseHttpsRedirection();
 
@@ -124,10 +194,13 @@ var staticFileOptions = new StaticFileOptions
 app.UseStaticFiles(staticFileOptions);
 
 app.UseAuthentication();
+
+app.UseRateLimiter();
+
 app.UseAuthorization();
 
 app.MapControllers().RequireAuthorization();
-app.MapFallbackToFile("index.html", staticFileOptions);
+app.MapFallbackToFile("index.html", staticFileOptions).DisableRateLimiting();
 
 app.Run();
 

@@ -1,13 +1,16 @@
 using ApplicationCore.Services;
 using KarlBot.DataModels.Authentication;
+using KarlBot.RateLimiting;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace KarlBot.Controllers
 {
     /// <summary>
     /// REST API controller with endpoints related to authentication.
     /// </summary>
+    [EnableRateLimiting(RateLimiterPolicyNames.Authentication)]
     [AllowAnonymous]
     [ApiController]
     [Route("Api/[controller]")]
