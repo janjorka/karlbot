@@ -36,11 +36,11 @@ jobs:
         npm run build -- application
         cd projects
         cd karel
-        npm install
+        npm ci
         npm run build
         cd ..
         cd karel-evaluation
-        npm install
+        npm ci
         npm run build
         cd ../..
     - name: Test client
